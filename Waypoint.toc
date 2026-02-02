@@ -1,0 +1,8 @@
+## Interface: 120000
+## Version: 12
+## Title: Waypoint
+## Notes: Simple and lightweight /way handling
+## Author: Froidre
+## X-Curse-Project-ID: 1094455
+
+WP.lua
