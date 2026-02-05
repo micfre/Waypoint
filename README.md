@@ -39,8 +39,6 @@ Example: `/way #1464 45.2 32.8 Dalaran Engineering Trainer`
 
 Example: `/way 45.2 32.8 @5 Engineering Trainer`
 
-### Waypoint Management
-
 #### List All Waypoints
 
 ```
@@ -72,8 +70,6 @@ Example: `/way remove 5`
 
 Example: `/way goto 5`
 
-### Location Commands
-
 #### Show Current Location
 
 ```
@@ -81,3 +77,9 @@ Example: `/way goto 5`
 ```
 
 Displays your current map name and coordinates.
+
+#### Show Help
+
+```
+/way help
+```
