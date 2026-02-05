@@ -4,7 +4,7 @@ A simple, lightweight addon that brings TomTom-style waypoint functionality usin
 
 ## Waypoint
 
-**Waypoint** lets you set, manage, and navigate to custom points of interest on your map and minimap. It supports multiple active waypoints, custom descriptions, and zone-specific coordinates, making it perfect for quick navigation needs.
+**Waypoint** lets you set, manage, and navigate to custom points of interest on your map and minimap. It supports multiple active waypoints, custom descriptions, and zone-specific coordinates, making it great for quick navigation.
 
 *   Supports the same **TomTom** `/way` format that you'll find in chat or on **WowHead**
 *   Lets you make **multiple waypoints**
@@ -53,11 +53,6 @@ Displays all active waypoints with their IDs, locations, and descriptions.
 
 ```
 /way remove ID
-```
-
-or
-
-```
 /way del ID
 ```
 

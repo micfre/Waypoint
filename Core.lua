@@ -1,23 +1,24 @@
+-- The whole thing
 local WP = {}
 
--- Waypoint storage
+-- Local storage
 WP.waypoints = {}
 WP.nextWaypointID = 1
 
--- Print helpers with color coding
+-- Console message helpers
 local function printError(message)
-  print("|cffff0000Error:|r " .. message)
+  print("|cffff0000" .. message)
 end
 
 local function printSuccess(message)
-  print("|cff00ff00Success:|r " .. message)
+  print("|cff00ff00" .. message)
 end
 
 local function printInfo(message)
-  print("|cff00ffffInfo:|r " .. message)
+  print("|cff00ffff" .. message)
 end
 
--- Parse coordinates from input
+-- Parse coordinates
 local function getCoordinates(numbers)
   local x = numbers[1] and math.floor(numbers[1] * 100 + 0.5) / 100
   local y = numbers[2] and math.floor(numbers[2] * 100 + 0.5) / 100
@@ -65,7 +66,7 @@ local function getWaypointByID(id)
   return WP.waypoints[id]
 end
 
--- Set the super tracked waypoint (the one that appears on the minimap)
+-- Set the superTracked waypoint (the one that appears on the minimap)
 local function setSuperTrackedWaypoint(id)
   local waypoint = getWaypointByID(id)
   if waypoint and C_Map.CanSetUserWaypointOnMap(waypoint.zoneID) then
@@ -119,9 +120,10 @@ local function Waypoint(args, editbox)
       local mapName = mapInfo.name
       local x = math.floor(position.x * 10000 + 0.5) / 100
       local y = math.floor(position.y * 10000 + 0.5) / 100
-      print(string.format("You are currently in |cffffa500%s|r at coordinates: |cffffff00%.2f, %.2f|r", mapName, x, y))
+      printInfo(string.format("You are currently in |cffffa500%s|r at coordinates: |cffffff00%.2f, %.2f|r", mapName, x, y))
     else
       printError("Cannot determine your current location.")
+      printInfo("You might be in an instance.")
     end
     return
   elseif args == "clear" then
@@ -215,8 +217,8 @@ local function Waypoint(args, editbox)
       setSuperTrackedWaypoint(waypoint.id)
     end
   else
-    printError("Usage: /way [#ZoneID] X Y [@ID] [Description]")
-    printInfo("Available commands:")
+    printInfo("Usage: /way [#ZoneID] X Y [@ID] [Description]")
+    printInfo("Available |cffffff00Waypoint|r commands:")
     printInfo("/way - List all waypoints")
     printInfo("/way me - Show current location")
     printInfo("/way clear - Clear all waypoints")
@@ -225,13 +227,17 @@ local function Waypoint(args, editbox)
   end
 end
 
--- Register the slash command
-SLASH_WAYPOINT1 = "/way"
-SlashCmdList["WAYPOINT"] = Waypoint
-
 -- Initialize the addon
 local function Initialize()
-  printInfo("Waypoint addon loaded. Type /way for commands.")
+  -- Only load if TomTom is not present
+  -- if IsAddOnLoaded("TomTom") or (_G.TomTom ~= nil) then
+  --   printError("TomTom is detected. |cffffff00Waypoint|r addon will not be loaded.")
+  --   return
+  -- end
+  
+  -- Register the slash command
+  SLASH_WAYPOINT1 = "/way"
+  SlashCmdList["WAYPOINT"] = Waypoint
 end
 
 -- Register initialization event
@@ -244,5 +250,5 @@ frame:SetScript("OnEvent", function(self, event)
   end
 end)
 
--- Publish API
+-- Publish the whole thing
 _G.Waypoint = WP
